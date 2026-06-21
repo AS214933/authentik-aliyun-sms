@@ -1,7 +1,6 @@
 services:
   authentik-aliyun-sms:
-    build: .
-    image: ghcr.io/OWNER/REPOSITORY:latest
+    image: ghcr.io/as214933/authentik-aliyun-sms:latest
     ports:
       - "8080:8080"
     environment:
