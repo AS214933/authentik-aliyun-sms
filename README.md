@@ -20,7 +20,7 @@ authentik Generic provider body:
 
 `From` is optional. `Message` is also accepted as a fallback field for the text body.
 
-Phone numbers may be sent in E.164 form such as `+8613800138000`; the service removes the leading `+` and common separators before calling Alibaba Cloud because Dysmsapi examples use dialing-code-prefixed digits. Mainland mobile numbers provided as `13800138000` are sent as `8613800138000`.
+Phone numbers may be sent in E.164 form such as `+8613800138000`; the service removes the leading `+` and common separators before calling Alibaba Cloud. In `mainland` mode, mainland mobile numbers are sent to Alibaba Cloud Domestic SMS as 11-digit numbers such as `13800138000`.
 
 If `AUTH_TOKEN` is set, configure authentik to send:
 
@@ -36,22 +36,22 @@ Authorization: Bearer <AUTH_TOKEN>
 | `AUTH_TOKEN` | no | empty | Optional bearer token required on `/send`. |
 | `ALIYUN_ACCESS_KEY_ID` | yes | empty | Alibaba Cloud AccessKey ID. |
 | `ALIYUN_ACCESS_KEY_SECRET` | yes | empty | Alibaba Cloud AccessKey secret. |
-| `ALIYUN_ENDPOINT` | no | `dysmsapi-xman.cn-hongkong.aliyuncs.com` | Dysmsapi endpoint. |
-| `ALIYUN_REGION_ID` | no | `cn-hongkong` | Region ID sent to Alibaba Cloud. This must match a Dysmsapi-supported region, otherwise Alibaba Cloud returns `InvalidRegion`. |
+| `ALIYUN_ENDPOINT` | no | `dysmsapi-xman.cn-hongkong.aliyuncs.com` | International Dysmsapi 2018-05-01 endpoint used by `global` mode. |
+| `ALIYUN_REGION_ID` | no | `cn-hongkong` | International Dysmsapi region used by `global` mode. |
 | `ALIYUN_TIMEOUT_SECONDS` | no | `10` | Per-message send timeout. |
 | `ALIYUN_SMS_MODE` | no | `auto` | `auto`, `mainland`, or `global`. |
-| `ALIYUN_SMS_SIGN_NAME` | mainland | empty | SMS signature name for template sends; sent to Alibaba Cloud as the `From` parameter. |
+| `ALIYUN_SMS_SIGN_NAME` | mainland/auto | empty | Approved Alibaba Cloud Domestic SMS signature name. |
 | `ALIYUN_SMS_TEMPLATE_CODE` | mainland/auto | empty | Alibaba Cloud SMS template code. |
 | `ALIYUN_SMS_TEMPLATE_PARAM` | mainland/auto | empty | Template variable receiving authentik's code, for example `code`. |
 | `ALIYUN_SMS_FROM` | no | empty | Default sender ID. Authentik's `From` overrides this in global mode when provided. |
 
 Modes:
 
-- `global` uses `SendMessageToGlobe` and sends authentik's `Body` as the direct message text.
-- `mainland` uses `SendMessageWithTemplate` and wraps authentik's `Body` as `{"<ALIYUN_SMS_TEMPLATE_PARAM>":"<Body>"}`. Alibaba Cloud's 2018-05-01 SDK names the mainland signature parameter `From`; this service sets it from `ALIYUN_SMS_SIGN_NAME` first.
+- `global` uses international SMS `2018-05-01 SendMessageToGlobe` and sends authentik's `Body` as the direct message text.
+- `mainland` uses Alibaba Cloud Domestic SMS `2017-05-25 SendSms` and wraps authentik's `Body` as `{"<ALIYUN_SMS_TEMPLATE_PARAM>":"<Body>"}`.
 - `auto` chooses `mainland` for Chinese mainland mobile numbers and `global` for all other numbers.
 
-For mainland template mode, if authentik sends a JSON object in `Body`, that object is passed through as `TemplateParams`. This supports templates with multiple variables.
+For mainland template mode, if authentik sends a JSON object in `Body`, that object is passed through as Alibaba Cloud `TemplateParam`. This supports templates with multiple variables.
 
 ## Run Locally
 

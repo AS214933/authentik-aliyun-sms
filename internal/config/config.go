@@ -69,6 +69,9 @@ func validate(cfg Config) error {
 	if (cfg.Aliyun.Mode == aliyun.ModeAuto || cfg.Aliyun.Mode == aliyun.ModeMainland) && cfg.Aliyun.TemplateCode == "" {
 		errs = append(errs, errors.New("ALIYUN_SMS_TEMPLATE_CODE is required for auto and mainland modes"))
 	}
+	if (cfg.Aliyun.Mode == aliyun.ModeAuto || cfg.Aliyun.Mode == aliyun.ModeMainland) && cfg.Aliyun.SignName == "" {
+		errs = append(errs, errors.New("ALIYUN_SMS_SIGN_NAME is required for auto and mainland modes"))
+	}
 	if cfg.Aliyun.TemplateParam == "" && (cfg.Aliyun.Mode == aliyun.ModeAuto || cfg.Aliyun.Mode == aliyun.ModeMainland) {
 		errs = append(errs, errors.New("ALIYUN_SMS_TEMPLATE_PARAM is required for auto and mainland modes"))
 	}
