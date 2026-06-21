@@ -31,6 +31,7 @@ type Config struct {
 	AccessKeyID     string
 	AccessKeySecret string
 	Endpoint        string
+	RegionID        string
 	Mode            Mode
 	SignName        string
 	TemplateCode    string
@@ -68,6 +69,7 @@ func NewClient(cfg Config) (*Client, error) {
 		AccessKeyId:     dara.String(cfg.AccessKeyID),
 		AccessKeySecret: dara.String(cfg.AccessKeySecret),
 		Endpoint:        dara.String(cfg.Endpoint),
+		RegionId:        dara.String(cfg.RegionID),
 	}
 
 	api, err := dysmsapi20180501.NewClient(openAPIConfig)

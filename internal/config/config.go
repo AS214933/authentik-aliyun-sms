@@ -12,7 +12,8 @@ import (
 
 const (
 	defaultHTTPAddr = ":8080"
-	defaultEndpoint = "dysmsapi.aliyuncs.com"
+	defaultEndpoint = "dysmsapi-xman.cn-hongkong.aliyuncs.com"
+	defaultRegionID = "cn-hongkong"
 )
 
 type Config struct {
@@ -28,6 +29,7 @@ func Load() (Config, error) {
 			AccessKeyID:     strings.TrimSpace(os.Getenv("ALIYUN_ACCESS_KEY_ID")),
 			AccessKeySecret: strings.TrimSpace(os.Getenv("ALIYUN_ACCESS_KEY_SECRET")),
 			Endpoint:        strings.TrimSpace(getenv("ALIYUN_ENDPOINT", defaultEndpoint)),
+			RegionID:        strings.TrimSpace(getenv("ALIYUN_REGION_ID", defaultRegionID)),
 			Mode:            aliyun.Mode(strings.ToLower(strings.TrimSpace(getenv("ALIYUN_SMS_MODE", string(aliyun.ModeAuto))))),
 			SignName:        strings.TrimSpace(os.Getenv("ALIYUN_SMS_SIGN_NAME")),
 			TemplateCode:    strings.TrimSpace(os.Getenv("ALIYUN_SMS_TEMPLATE_CODE")),
@@ -57,6 +59,9 @@ func validate(cfg Config) error {
 	}
 	if cfg.Aliyun.Endpoint == "" {
 		errs = append(errs, errors.New("ALIYUN_ENDPOINT must not be empty"))
+	}
+	if cfg.Aliyun.RegionID == "" {
+		errs = append(errs, errors.New("ALIYUN_REGION_ID must not be empty"))
 	}
 	if !cfg.Aliyun.Mode.Valid() {
 		errs = append(errs, fmt.Errorf("ALIYUN_SMS_MODE must be one of %q, %q, or %q", aliyun.ModeAuto, aliyun.ModeMainland, aliyun.ModeGlobal))

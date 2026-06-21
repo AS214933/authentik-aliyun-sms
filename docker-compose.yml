@@ -8,6 +8,8 @@ services:
       AUTH_TOKEN: "change-me"
       ALIYUN_ACCESS_KEY_ID: "${ALIYUN_ACCESS_KEY_ID}"
       ALIYUN_ACCESS_KEY_SECRET: "${ALIYUN_ACCESS_KEY_SECRET}"
+      ALIYUN_REGION_ID: "${ALIYUN_REGION_ID:-cn-hongkong}"
+      ALIYUN_ENDPOINT: "${ALIYUN_ENDPOINT:-dysmsapi-xman.cn-hongkong.aliyuncs.com}"
       ALIYUN_SMS_MODE: "auto"
       ALIYUN_SMS_SIGN_NAME: "${ALIYUN_SMS_SIGN_NAME}"
       ALIYUN_SMS_TEMPLATE_CODE: "${ALIYUN_SMS_TEMPLATE_CODE}"

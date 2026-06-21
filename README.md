@@ -36,7 +36,8 @@ Authorization: Bearer <AUTH_TOKEN>
 | `AUTH_TOKEN` | no | empty | Optional bearer token required on `/send`. |
 | `ALIYUN_ACCESS_KEY_ID` | yes | empty | Alibaba Cloud AccessKey ID. |
 | `ALIYUN_ACCESS_KEY_SECRET` | yes | empty | Alibaba Cloud AccessKey secret. |
-| `ALIYUN_ENDPOINT` | no | `dysmsapi.aliyuncs.com` | Dysmsapi endpoint. |
+| `ALIYUN_ENDPOINT` | no | `dysmsapi-xman.cn-hongkong.aliyuncs.com` | Dysmsapi endpoint. |
+| `ALIYUN_REGION_ID` | no | `cn-hongkong` | Region ID sent to Alibaba Cloud. This must match a Dysmsapi-supported region, otherwise Alibaba Cloud returns `InvalidRegion`. |
 | `ALIYUN_TIMEOUT_SECONDS` | no | `10` | Per-message send timeout. |
 | `ALIYUN_SMS_MODE` | no | `auto` | `auto`, `mainland`, or `global`. |
 | `ALIYUN_SMS_SIGN_NAME` | mainland | empty | SMS signature name for template sends; sent to Alibaba Cloud as the `From` parameter. |

@@ -26,4 +26,10 @@ func TestLoadGlobalModeDoesNotRequireTemplate(t *testing.T) {
 	if cfg.Aliyun.Mode != "global" {
 		t.Fatalf("unexpected mode: %q", cfg.Aliyun.Mode)
 	}
+	if cfg.Aliyun.RegionID != "cn-hongkong" {
+		t.Fatalf("unexpected region id: %q", cfg.Aliyun.RegionID)
+	}
+	if cfg.Aliyun.Endpoint != "dysmsapi-xman.cn-hongkong.aliyuncs.com" {
+		t.Fatalf("unexpected endpoint: %q", cfg.Aliyun.Endpoint)
+	}
 }
